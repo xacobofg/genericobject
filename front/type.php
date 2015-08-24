@@ -29,12 +29,12 @@ include ("../../../inc/includes.php");
 
 Session::checkRight("config","w");
 
-if (isset($_GET['itemtype'])) {
+if (isset($_GET['itemtype']) && $_GET['itemtype'] != "PluginGenericobjectType") {
    $type = new PluginGenericobjectType();
    $type->getFromDBByType($_GET['itemtype']);
    Html::redirect(Toolbox::getItemTypeFormURL('PluginGenericobjectType').'?id='.$type->getID());
 } else {
-   Html::header(__("Type of objects", "genericobject"), $_SERVER['PHP_SELF'], "plugins", 
+   Html::header(__("Type of objects", "genericobject"), $_SERVER['PHP_SELF'], "plugins",
                 "genericobject", "type");
    Search::Show('PluginGenericobjectType');
    Html::footer();
