@@ -136,3 +136,39 @@ msgstr ""
 #: inc/typefamily.class.php:35
 msgid "Family of type of objects"
 msgstr ""
+
+msgid "Object "
+msgstr "Objeto "
+
+msgid "Select an object to link"
+msgstr "Seleccione un objeto de obligar"
+
+msgid "Link"
+msgstr "Enlace"
+
+msgid "Links"
+msgstr "Conexiones"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Type"
+msgstr "Tipo"
+
+msgid "Remove"
+msgstr "Eliminar"
+
+msgid "Delete link"
+msgstr "Desvincular"
+
+msgid "Nothing to show"
+msgstr "Nada para mostrar"
+
+msgid "Linked objects"
+msgstr ""
+
+msgid "This Object is already link"
+msgstr "Este objeto ya está conectado"

@@ -136,3 +136,39 @@ msgstr "Famille vide"
 #: inc/typefamily.class.php:35
 msgid "Family of type of objects"
 msgstr "Famille"
+
+msgid "Object "
+msgstr "Object "
+
+msgid "Select an object to link"
+msgstr "Selectionner un objet à lier"
+
+msgid "Link"
+msgstr "Lier"
+
+msgid "Links"
+msgstr "Liens"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Remove"
+msgstr "Supprimer"
+
+msgid "Delete link"
+msgstr "Supprimer le lien"
+
+msgid "Nothing to show"
+msgstr "Rien à afficher"
+
+msgid "This Object is already link"
+msgstr "Cette objet est déjà lié"
+
+msgid "Linked objects"
+msgstr "Objet(s) lié(s)"

@@ -133,10 +133,10 @@ class PluginGenericobjectType extends CommonDBTM {
             case 6:
                PluginGenericobjectProfile::showForItemtype($item);
                break;
-               /*
+
             case 7:
                $item->showLinkedTypesForm();
-               break;*/
+               break;
          }
       }
       return true;
@@ -411,7 +411,7 @@ class PluginGenericobjectType extends CommonDBTM {
                        "use_loans"                => _n("Reservation", "Reservations", 2),
                        "use_unicity"              => __("Fields unicity"),
                        "use_global_search"        => __("Global search"),
-   //                     "use_direct_connections"  => __("Link to other objects", "genericobject"),
+                       "use_direct_connections"  => __("Link to other objects", "genericobject"),
                        "use_network_ports"        => __("Network connections", "genericobject"),
                        "use_plugin_datainjection" => __("injection file plugin", "genericobject"),
    //                    "use_plugin_pdf"           => __("PDF plugin", "genericobject"),
@@ -701,7 +701,7 @@ class PluginGenericobjectType extends CommonDBTM {
 
       if ($this->canUseDirectConnections()) {
          self::addItemsTable($itemtype);
-         //self::addItemClassFile($this->fields['name'], $itemtype);
+         self::addItemClassFile($this->fields['name'], $itemtype);
       } else {
          self::deleteItemsTable($itemtype);
          self::deleteClassFile($this->fields['name']."_item");
@@ -1308,7 +1308,7 @@ class PluginGenericobjectType extends CommonDBTM {
       $table = getTableForItemType(__CLASS__);
       if (TableExists($table)) {
          $mytypes = array();
-         foreach (getAllDatasFromTable($table, (!$all?" is_active=" . self::ACTIVE:"")) as $data) {
+         foreach (getAllDatasFromTable($table, (!$all?" is_active=" . self::ACTIVE:""), false, "name ASC") as $data) {
             //If class is not present on the filesystem, do not list itemtype
             if (file_exists(GENERICOBJECT_CLASS_PATH."/".$data['name'].".class.php")) {
                $mytypes[$data['plugin_genericobject_typefamilies_id']][$data['itemtype']] = $data;

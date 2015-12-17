@@ -136,3 +136,39 @@ msgstr "Empty family"
 #: inc/typefamily.class.php:35
 msgid "Family of type of objects"
 msgstr "Family of type of objects"
+
+msgid "Object "
+msgstr "Object "
+
+msgid "Select an object to link"
+msgstr "Select an object to link"
+
+msgid "Link"
+msgstr "Link"
+
+msgid "Links"
+msgstr "Links"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Remove"
+msgstr "Remove"
+
+msgid "Delete link"
+msgstr "Delete link"
+
+msgid "Nothing to show"
+msgstr "Nothing to show"
+
+msgid "This Object is already link"
+msgstr "This Object is already link"
+
+msgid "Linked objects"
+msgstr "Linked objects"

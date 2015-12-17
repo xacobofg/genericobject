@@ -45,6 +45,9 @@ if (!defined("GENERICOBJECT_LOCALES_PATH")) {
 function plugin_init_genericobject() {
    global $PLUGIN_HOOKS, $CFG_GLPI, $GO_BLACKLIST_FIELDS, $GO_FIELDS,
           $GENERICOBJECT_PDF_TYPES, $GO_LINKED_TYPES, $GO_READONLY_FIELDS;
+
+    $PLUGIN_HOOKS['add_javascript']['genericobject'] = array('scripts/genericobject.js.php',
+        'scripts/jquery-1.11.0.min.js');
           
    $GO_READONLY_FIELDS  = array ("is_helpdesk_visible", "comment");
 
@@ -52,8 +55,9 @@ function plugin_init_genericobject() {
                                  "is_recursive", "is_template", "notepad", "template_name", "date_mod", "name", 
                                  "is_helpdesk_visible", "comment");
 
+   //$GO_LINKED_TYPES = array();
    $GO_LINKED_TYPES     = array ('Computer', 'Phone', 'Peripheral', 'Software', 'Monitor',
-                                  'Printer', 'NetworkEquipment');
+                                 'Printer', 'NetworkEquipment');
    
    $PLUGIN_HOOKS['csrf_compliant']['genericobject'] = true;
    $GENERICOBJECT_PDF_TYPES                         = array ();
@@ -118,7 +122,7 @@ function plugin_post_init_genericobject() {
 // Get the name and the version of the plugin - Needed
 function plugin_version_genericobject() {
    return array ('name'           => __("Objects management", "genericobject"),
-                 'version'        => '0.84-2.3.3',
+                 'version'        => '2.3.2',
                  'author'         => "<a href=\"mailto:contact@teclib.com\">Teclib'</a>",
                  'homepage'       => 'https://forge.indepnet.net/projects/genericobject',
                  'license'        => 'GPLv2+',

@@ -59,12 +59,14 @@ if (isset($_GET['itemtypes_id']) && $_GET['itemtypes_id']!='') {
       Html::header(__("Objects management", "genericobject"), $_SERVER['PHP_SELF'], "plugins",
                    "genericobject");
 
+      echo "<div style='height:350px;width:50%;margin-left:auto;margin-right:auto;'>";
+
       foreach($types as $family => $typeData) {
 
          $PluginGenericobjectTypefamily = new PluginGenericobjectTypefamily();
          $PluginGenericobjectTypefamily->getFromDB($family);
 
-         echo "<table class='tab_cadre_fixe'>";
+         echo "<table class='tab_cadre_fixe' style='width:45%;float:left;margin-left:10px;margin-right:10px;'>";
          if($family == 0) {
             echo "<tr class='tab_bg_2'><th>".__("Empty family","genericobject")."</th></tr>";
          } else {
@@ -77,12 +79,14 @@ if (isset($_GET['itemtypes_id']) && $_GET['itemtypes_id']!='') {
                echo "<tr class='tab_bg_1'><td align='center'>";
                echo "<a href='".Toolbox::getItemTypeSearchURL($value['itemtype'])."'>";
                $itemtype = $value['itemtype'];
-               echo $itemtype::getTypeName();
+               echo strtoupper($itemtype::getTypeName());
                echo "</a></td></tr>";
             }
          }
          echo "</table>";
       }
+
+      echo "</div>";
 
       Html::footer();
 }

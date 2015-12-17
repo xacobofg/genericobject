@@ -32,6 +32,10 @@ class PluginGenericobjectObject extends CommonDBTM {
    //Internal field counter
    private $cpt = 0;
 
+    function accesObjectType(){
+        return $this->objecttype;
+    }
+
    //Get itemtype name
    static function getTypeName($nb=0) {
       global $LANG;
@@ -147,11 +151,14 @@ class PluginGenericobjectObject extends CommonDBTM {
          if ($item->canUseDirectConnections()) {
             if (!in_array($class, $GO_LINKED_TYPES)) {
                array_push($GO_LINKED_TYPES, $class);
+
             }
-            $items_class = $class."_Item";
-            //if (class_exists($items_class)) {
-               $items_class::registerType();
-            //}
+
+             $items_class = $class."_Item";
+             //if (class_exists($items_class)) {
+             $items_class::registerType();
+             //}
+
          }
       }
 
@@ -218,9 +225,11 @@ class PluginGenericobjectObject extends CommonDBTM {
             $this->addStandardTab('Reservation', $ong, $options);
          }
 
-         if ($this->canUseHistory()) {
-            $this->addStandardTab('Log',$ong, $options);
-         }
+          if ($this->canUseHistory()) {
+              $this->addStandardTab('Log',$ong, $options);
+          }
+
+
       }
       return $ong;
    }
@@ -373,6 +382,7 @@ class PluginGenericobjectObject extends CommonDBTM {
             $this->displayField($canedit, $field, $this->fields[$field], $template, $description);
          }
       }
+
       $this->closeColumn();
       
       if (!$this->isNewID($id)) {
@@ -384,7 +394,8 @@ class PluginGenericobjectObject extends CommonDBTM {
          }
          echo "</td></tr>";
       }
-      
+
+
       if (!$previsualisation) {
          $this->showFormButtons($options);
          echo "<div id='tabcontent'></div>";
@@ -812,9 +823,125 @@ class PluginGenericobjectObject extends CommonDBTM {
          }
          $index++;
       }
-      asort($options);
+
+       $nameColumnId = str_replace('glpi_','',$this->getTable()."_id");
+       $nameTableItem = $this->getTable()."_items";
+
+       /*$options[223]['table']          = $nameTableItem;
+       $options[223]['field']          = 'items_id';
+       $options[223]['massiveaction']          = 'false';
+       $options[223]['datatype']          = 'specific';
+       $options[223]['forcegroupby']      = true;
+       $options[223]['name']           = __('Linked objects','genericobject');
+       $options[223]['joinparams']        = array('jointype' => 'child');*/
+
+       $nameColumnId = str_replace('glpi_','',$this->getTable()."_id");
+       $nameTableItem = $this->getTable()."_items";
+
+       $options[224]['table']          = $this->getTable();
+       $options[224]['field']          = 'id';
+       $options[224]['massiveaction']  = 'false';
+       $options[224]['datatype']       = 'specific';
+       $options[224]['forcegroupby']   = true;
+       $options[224]['name']           = __('Addresses liées','genericobject');
+       $options[224]['searchtype']     = 'false';
+
+
+       $options[223]['table'] = $nameTableItem;
+       $options[223]['field'] = 'id';
+       $options[223]['massiveaction'] = 'false';
+       $options[223]['datatype'] = 'specific';
+       $options[223]['forcegroupby'] = true;
+       $options[223]['name'] = __('Objets liés','genericobject');
+       $options[223]['joinparams'] = array('jointype' => 'child');
+
+
+
+
+       asort($options);
       return $options;
    }
+
+
+    static function getSpecificValueToDisplay($field, $values, array $options=array()) {
+
+        global $DB;
+        if (!is_array($values)) {
+            $values = array($field => $values);
+        }
+
+
+
+        switch ($field) {
+            case 'id' :
+
+                $plugin = new Plugin();
+
+                if ($plugin->isActivated("phoneline")) {
+
+                    $type = get_called_class();
+                    $id = $values['id'];
+
+                    $query = "SELECT `gppn`.`id`, `gppn`.`name` AS `number`, `ind`.`name` AS `indicative`,
+      `ind`.`id` AS `indicatives_id`, `type`.`name` AS `type`, `type`.`id` AS `types_id`,
+      `gppni`.`date_add`
+      FROM `glpi_plugin_phoneline_numbers_items` gppni
+      INNER JOIN `glpi_plugin_phoneline_numbers` gppn ON `gppni`.`numbers_id` = `gppn`.`id`
+      LEFT JOIN `glpi_plugin_phoneline_indicatives` ind ON `gppn`.`plugin_phoneline_indicatives_id` = `ind`.`id`
+      LEFT JOIN `glpi_plugin_phoneline_numbertypes` type ON `gppn`.`plugin_phoneline_numbertypes_id` = `type`.`id`
+      WHERE `gppni`.`date_delete` IS NULL AND `gppni`.`itemtype` = '" . $type . "' AND `gppni`.`items_id` = '$id'";
+
+
+
+                    $result = $DB->query($query);
+                    $number = $DB->numrows($result);
+                    $numbers = array();
+
+                    while ($data = $DB->fetch_assoc($result)) {
+                        $numbers[$data['id']] = $data;
+                    }
+
+                    $url = "";
+                    foreach ($numbers as $data) {
+                        $num = new PluginPhonelineNumber();
+                        $num->getFromDB($data['id']);
+
+                        $url .= $num->getLink()."<br>";
+                    }
+
+
+
+                    if($url != "")return $url;
+                    else return  " ";
+
+                }else{
+                    return "Veuillez activer le plugin PhoneLine";
+                }
+
+
+                break;
+
+        }
+
+
+    }
+
+    /*static function getSpecificValueToDisplay($field, $values, array $options=array()) {
+
+        if (!is_array($values)) {
+            $values = array($field => $values);
+        }
+
+        switch ($field) {
+            case 'items_id' :
+
+                return "truk";
+                break;
+
+        }
+
+        return parent::getSpecificValueToDisplay($field, $values, $options);
+    }*/
 
 
    
