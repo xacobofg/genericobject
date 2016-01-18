@@ -126,6 +126,9 @@ function plugin_genericobject_install() {
          or die("Can't create folder " . GENERICOBJECT_CLASS_PATH);
    }
 
+   // Regenerate files to take into account their new home
+   regenerateFiles();
+
    //Init plugin & types
    plugin_init_genericobject();
 
