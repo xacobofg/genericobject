@@ -98,6 +98,14 @@ function plugin_genericobject_install() {
 
    $migration = new Migration('2.4.0');
    
+   // Regenerate files to take into account their new home
+   $type = new PluginGenericobjectType();
+   $allTypes = $type->find("1");
+   foreach($allTypes as $oneType) {
+      PluginGenericobjectType::checkClassAndFilesForOneItemType($oneType['itemtype'],
+            $oneType['name'], true);
+   }
+   
    foreach (
       array(
          'PluginGenericobjectField',
@@ -125,9 +133,6 @@ function plugin_genericobject_install() {
       @ mkdir(GENERICOBJECT_CLASS_PATH, 0777, true)
          or die("Can't create folder " . GENERICOBJECT_CLASS_PATH);
    }
-
-   // Regenerate files to take into account their new home
-   regenerateFiles();
 
    //Init plugin & types
    plugin_init_genericobject();

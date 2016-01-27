@@ -84,6 +84,7 @@ if (file_exists(GENERICOBJECT_DIR . "/log_filter.settings.php") ){
 }
 
 $options = array(
+   GENERICOBJECT_DIR . '/inc',
    GENERICOBJECT_CLASS_PATH
 );
 $go_autoloader = new PluginGenericobjectAutoloader($options);
