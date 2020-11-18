@@ -161,7 +161,9 @@ class PluginGenericobjectObject_Item extends CommonDBChild {
 
 
    function getTabNameForItem(CommonGLPI $item, $withtemplate = 0) {
-      return [1 => __("Associated child", "genericobject"),2=>__("Associated parent","genericobject")];
+      $nbchild=countElementsInTable(self::getTable(),['parentitemtype'=>$item->getType(),'parent_id'=>$item->getID()]);
+      $nbparent=countElementsInTable(self::getTable(),['childitemtype'=>$item->getType(),'child_id'=>$item->getID()]);
+      return [1 => self::createTabEntry(__("Associated child", "genericobject"),$nbchild),2=>self::createTabEntry(__("Associated parent","genericobject"),$nbparent)];
    }
 
    static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0) {
