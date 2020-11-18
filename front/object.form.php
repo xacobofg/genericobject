@@ -96,6 +96,8 @@ if (!is_null($itemtype)) {
       $item->check($id, DELETE);
       $item->delete($_POST);
       $item->redirectToList();
+   }else if (isset($_POST["link"])) {
+      PluginGenericobjectObject_Item::addlink($_POST["parentid"],$_POST["parenttype"],$_POST["plugin_object_link"],$_POST["plugin_item_links"]);
    }
    $menu = PluginGenericobjectType::getFamilyNameByItemtype($_GET['itemtype']);
    Html::header($itemtype::getTypeName(), $_SERVER['PHP_SELF'],

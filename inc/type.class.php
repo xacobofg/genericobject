@@ -115,9 +115,9 @@ class PluginGenericobjectType extends CommonDBTM {
                   3 => self::createTabEntry(_n("Field", "Fields", Session::getPluralNumber()), $nb_fields),
                   5 => __("Preview")
                ];
-               if ($item->canUseDirectConnections()) {
+               //if ($item->canUseDirectConnections()) {
                   $tabs[7] = __("Associated element");
-               }
+               //}
                return $tabs;
          }
       }
@@ -143,6 +143,9 @@ class PluginGenericobjectType extends CommonDBTM {
             case 6:
                PluginGenericobjectProfile::showForItemtype($item);
                break;
+
+            case 7:
+               PluginGenericobjectObject_Item::showAssociatedItems($item);
          }
       }
       return true;

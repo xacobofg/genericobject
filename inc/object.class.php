@@ -388,6 +388,7 @@ class PluginGenericobjectObject extends CommonDBTM {
          if ($this->canUseHistory()) {
             $this->addStandardTab('Log', $tabs, $options);
          }
+         $this->addStandardTab('PluginGenericobjectObject_Item', $tabs, $options);
       }
       return $tabs;
    }

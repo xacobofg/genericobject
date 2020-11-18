@@ -119,7 +119,8 @@ function plugin_genericobject_install() {
       'PluginGenericobjectCommonTreeDropdown',
       'PluginGenericobjectProfile',
       'PluginGenericobjectType',
-      'PluginGenericobjectTypeFamily'
+      'PluginGenericobjectTypeFamily',
+      'PluginGenericobjectObject_Item'
    ] as $itemtype) {
       if ($plug=isPluginItemType($itemtype)) {
          $plugname = strtolower($plug['plugin']);
@@ -170,7 +171,8 @@ function plugin_genericobject_uninstall() {
       'PluginGenericobjectType',
       'PluginGenericobjectProfile',
       'PluginGenericobjectField',
-      'PluginGenericobjectTypeFamily'
+      'PluginGenericobjectTypeFamily',
+      'PluginGenericobjectObject_Item'
    ] as $itemtype) {
       if ($plug=isPluginItemType($itemtype)) {
          $plugname = strtolower($plug['plugin']);
