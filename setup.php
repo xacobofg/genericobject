@@ -35,7 +35,7 @@
  ----------------------------------------------------------------------
  */
 
-define ('PLUGIN_GENERICOBJECT_VERSION', '2.9.1');
+define ('PLUGIN_GENERICOBJECT_VERSION', '2.9.1.1');
 
 // Minimal GLPI version, inclusive
 define("PLUGIN_GENERICOBJECT_MIN_GLPI", "9.5");
@@ -113,7 +113,7 @@ $go_autoloader->register();
  */
 function plugin_init_genericobject() {
    global $PLUGIN_HOOKS, $GO_BLACKLIST_FIELDS,
-          $GENERICOBJECT_PDF_TYPES, $GO_LINKED_TYPES, $GO_READONLY_FIELDS;
+          $GENERICOBJECT_PDF_TYPES, $GO_LINKED_TYPES, $GO_READONLY_FIELDS,$CFG_GLPI;
 
    $GO_READONLY_FIELDS  =  ["is_helpdesk_visible", "comment"];
 
@@ -122,8 +122,9 @@ function plugin_init_genericobject() {
                             "date_mod", "name", "is_helpdesk_visible", "comment",
                             "date_creation"];
 
-   $GO_LINKED_TYPES     =  ['Computer', 'Phone', 'Peripheral', 'Software', 'Monitor',
-                            'Printer', 'NetworkEquipment'];
+   /*$GO_LINKED_TYPES     =  ['Computer', 'Phone', 'Peripheral', 'Software', 'Monitor',
+                            'Printer', 'NetworkEquipment'];*/
+   $GO_LINKED_TYPES = $CFG_GLPI['asset_types'];
 
    $PLUGIN_HOOKS['csrf_compliant']['genericobject'] = true;
    $GENERICOBJECT_PDF_TYPES                         =  [];
@@ -210,6 +211,8 @@ function plugin_post_init_genericobject() {
       }
 
    }
+
+   PluginGenericobjectObject_Item::registerType();
 }
 
 /**
